@@ -5,6 +5,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly/v2"
 	"github.com/xuri/excelize/v2"
+	"log"
 	"os"
 	"strconv"
 )
@@ -23,11 +24,16 @@ Example:
 }
 
 func init() {
-	if len(os.Args) < 2 {
-		usage()
+	if len(os.Args) > 1 {
+		url = os.Args[1]
+	} else {
+		fmt.Print("请输入需要爬取的网页链接: ")
+		if _, err := fmt.Scanf("%s\n", &url); err != nil {
+			log.Println("输入数据有误，请输入正确地址，或者使用命令行方式")
+			usage()
+			return
+		}
 	}
-
-	url = os.Args[1]
 }
 
 func main() {
